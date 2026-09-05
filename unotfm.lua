@@ -5970,32 +5970,41 @@ function endGame(p, card, winners, mode)
 							unlockChair(p, "white")
 						end
 					else
-						if card[1] == "red" then
-							PLAYER[p].stats.victory.cian = PLAYER[p].stats.victory.cian + 1
+						if card and card[1] == "red" then
+							if PLAYER[p] and PLAYER[p].stats and PLAYER[p].stats.victory then
+                                                                PLAYER[p].stats.victory.cian = (PLAYER[p].stats.victory.cian or 0) + 1
 							if PLAYER[p].stats.victory.cian >= 15 then
 								unlockChair(p, "toxic")
 							end
 							unlockChair(p, "cyan")
 						elseif card[1] == "blue" then
-							PLAYER[p].stats.victory.orange = PLAYER[p].stats.victory.orange + 1
+							if PLAYER[p] and PLAYER[p].stats and PLAYER[p].stats.victory then
+                                                                PLAYER[p].stats.victory.orange = (PLAYER[p].stats.victory.orange or 0) + 1
+                                                        end
 							if PLAYER[p].stats.victory.orange >= 15 then
 								unlockChair(p, "thunder")
 							end
 							unlockChair(p, "orange")
 						elseif card[1] == "yellow" then
-							PLAYER[p].stats.victory.purple = PLAYER[p].stats.victory.purple + 1
+							if PLAYER[p] and PLAYER[p].stats and PLAYER[p].stats.victory then
+                                                                PLAYER[p].stats.victory.purple = (PLAYER[p].stats.victory.purple or 0) + 1
+                                                        end
 							if PLAYER[p].stats.victory.purple >= 15 then
 								unlockChair(p, "dark")
 							end
 							unlockChair(p, "purple")
 						elseif card[1] == "green" then
-							PLAYER[p].stats.victory.pink = PLAYER[p].stats.victory.pink + 1
+							if PLAYER[p] and PLAYER[p].stats and PLAYER[p].stats.victory then
+                                                                PLAYER[p].stats.victory.pink = (PLAYER[p].stats.victory.pink or 0) + 1
+                                                        end
 							if PLAYER[p].stats.victory.pink >= 15 then
 								unlockChair(p, "crystal")
 							end
 							unlockChair(p, "pink")
 						elseif card[1] == "black" then
-							PLAYER[p].stats.victory.white = PLAYER[p].stats.victory.white + 1
+							if PLAYER[p] and PLAYER[p].stats and PLAYER[p].stats.victory then
+                                                                PLAYER[p].stats.victory.white = (PLAYER[p].stats.victory.white or 0) + 1
+                                                        end
 							if PLAYER[p].stats.victory.white >= 15 then
 								unlockChair(p, "light")
 							end
@@ -6089,11 +6098,15 @@ function endGame(p, card, winners, mode)
 				end
 				if ROUND.gameMode.portal or ROUND.gameMode.mess then
 					if ROUND.portal.side == "orange" then
+                                                if PLAYER[p] then
 						PLAYER[p].portal1 = 1
-						PLAYER[p].stats.victory.lightWin = PLAYER[p].stats.victory.lightWin + 1
+                                                        if PLAYER[p].stats and PLAYER[p].stats.victory then
+                                                                PLAYER[p].stats.victory.lightWin = (PLAYER[p].stats.victory.lightWin or 0) + 1
+                                                        end
 						if PLAYER[p].stats.victory.lightWin >= 10 then
 							unlockChair(p, "lightfury")
 						end
+                                                end
 						if pp and not BOT[pp] then
 							PLAYER[pp].portal1 = 1
 							PLAYER[pp].stats.victory.lightWin = PLAYER[pp].stats.victory.lightWin + 1
@@ -10754,7 +10767,7 @@ function chair(n)
 		if c.owner ~= "" and PLAYER[c.owner] then
 			PLAYER[c.owner].chair = rand[1]
 		end
-		if #c.hand == 1 then
+		if c and c.hand and #c.hand == 1 then
 			c.uno = "uno"
 		end
 	end
